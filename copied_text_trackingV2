@@ -1,0 +1,235 @@
+{
+    "exportFormatVersion": 2,
+    "exportTime": "2023-10-05 19:22:15",
+    "containerVersion": {
+        "path": "accounts/1532084357/containers/7098157/versions/0",
+        "accountId": "1532084357",
+        "containerId": "7098157",
+        "containerVersionId": "0",
+        "container": {
+            "path": "accounts/1532084357/containers/7098157",
+            "accountId": "1532084357",
+            "containerId": "7098157",
+            "name": "Copied Text Tracking",
+            "publicId": "GTM-TKG8TPC",
+            "usageContext": [
+                "WEB"
+            ],
+            "fingerprint": "1554404911217",
+            "tagManagerUrl": "https://tagmanager.google.com/#/container/accounts/1532084357/containers/7098157/workspaces?apiLink=container"
+        },
+        "tag": [
+            {
+                "accountId": "1532084357",
+                "containerId": "7098157",
+                "tagId": "1",
+                "name": "GA - Event - Text Copied",
+                "type": "ua",
+                "parameter": [
+                    {
+                        "type": "BOOLEAN",
+                        "key": "nonInteraction",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "overrideGaSettings",
+                        "value": "true"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "doubleClick",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setTrackerName",
+                        "value": "false"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "useDebugVersion",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventCategory",
+                        "value": "Copied Text"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "trackType",
+                        "value": "TRACK_EVENT"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableLinkId",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventAction",
+                        "value": "{{Page Path}}"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "eventLabel",
+                        "value": "Text: {{TextCopied}}"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "enableEcommerce",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "trackingId",
+                        "value": "{{G-XXXXXXX}}"
+                    }
+                ],
+                "fingerprint": "1554404983556",
+                "firingTriggerId": [
+                    "5"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT"
+            },
+            {
+                "accountId": "1532084357",
+                "containerId": "7098157",
+                "tagId": "2",
+                "name": "Listener - Copy Text",
+                "type": "html",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "html",
+                        "value": "<script>\nfunction copyText() {\nvar cT = '';\nif (window.getSelection) {\ncT = window.getSelection().toString();} \nelse if (document.selection && document.selection.type != 'Control') {\ncT = document.selection.createRange().text;}\nreturn cT;}\ndocument.addEventListener(\"copy\", function(e){\ndataLayer.push({\n'event': 'textCopied',\n'clipboardText': copyText(),\n'clipboardLength': copyText().length});});\n</script>"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "supportDocumentWrite",
+                        "value": "false"
+                    }
+                ],
+                "fingerprint": "1554404793100",
+                "firingTriggerId": [
+                    "6"
+                ],
+                "tagFiringOption": "ONCE_PER_EVENT"
+            }
+        ],
+        "trigger": [
+            {
+                "accountId": "1532084357",
+                "containerId": "7098157",
+                "triggerId": "6",
+                "name": "Page View - DOM Ready",
+                "type": "DOM_READY",
+                "fingerprint": "1554405049244"
+            },
+            {
+                "accountId": "1532084357",
+                "containerId": "7098157",
+                "triggerId": "5",
+                "name": "Text Copied",
+                "type": "CUSTOM_EVENT",
+                "customEventFilter": [
+                    {
+                        "type": "EQUALS",
+                        "parameter": [
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg0",
+                                "value": "{{_event}}"
+                            },
+                            {
+                                "type": "TEMPLATE",
+                                "key": "arg1",
+                                "value": "textCopied"
+                            }
+                        ]
+                    }
+                ],
+                "fingerprint": "1554405014798"
+            }
+        ],
+        "variable": [
+            {
+                "accountId": "1532084357",
+                "containerId": "7098157",
+                "variableId": "1",
+                "name": "TextCopied",
+                "type": "v",
+                "parameter": [
+                    {
+                        "type": "INTEGER",
+                        "key": "dataLayerVersion",
+                        "value": "2"
+                    },
+                    {
+                        "type": "BOOLEAN",
+                        "key": "setDefaultValue",
+                        "value": "false"
+                    },
+                    {
+                        "type": "TEMPLATE",
+                        "key": "name",
+                        "value": "clipboardText"
+                    }
+                ],
+                "fingerprint": "1554405728428",
+                "formatValue": {}
+            },
+            {
+                "accountId": "1532084357",
+                "containerId": "7098157",
+                "variableId": "2",
+                "name": "GA4 for copied text",
+                "type": "c",
+                "parameter": [
+                    {
+                        "type": "TEMPLATE",
+                        "key": "value",
+                        "value": "G-XXXXXXX"
+                    }
+                ],
+                "fingerprint": "1554404911217",
+                "formatValue": {}
+            }
+        ],
+        "builtInVariable": [
+            {
+                "accountId": "1532084357",
+                "containerId": "7098157",
+                "type": "PAGE_URL",
+                "name": "Page URL"
+            },
+            {
+                "accountId": "1532084357",
+                "containerId": "7098157",
+                "type": "PAGE_HOSTNAME",
+                "name": "Page Hostname"
+            },
+            {
+                "accountId": "1532084357",
+                "containerId": "7098157",
+                "type": "PAGE_PATH",
+                "name": "Page Path"
+            },
+            {
+                "accountId": "1532084357",
+                "containerId": "7098157",
+                "type": "REFERRER",
+                "name": "Referrer"
+            },
+            {
+                "accountId": "1532084357",
+                "containerId": "7098157",
+                "type": "EVENT",
+                "name": "Event"
+            }
+        ],
+        "fingerprint": "0",
+        "tagManagerUrl": "https://tagmanager.google.com/#/versions/accounts/1532084357/containers/7098157/versions/0?apiLink=version"
+    }
+}
