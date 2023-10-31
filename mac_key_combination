@@ -1,0 +1,14 @@
+<script>
+  var keyCombinationDetected = false;
+
+  document.addEventListener('keydown', function(e) {
+    // Check if the user is on a Mac and the key combination is Command+Shift+A
+    if (!keyCombinationDetected && navigator.platform.indexOf('Mac') >= 0 && e.metaKey && e.shiftKey && e.keyCode === 65) {  
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'mac_key_combination'
+      });
+      keyCombinationDetected = true;
+    }
+  });
+</script>
