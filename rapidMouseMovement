@@ -1,0 +1,53 @@
+(function() {
+    var lastTime = Date.now();
+    var points = []; // Store points to track complex movement
+    var threshold = 50; // distance in pixels for rapid movement
+    var timeFrame = 50; // milliseconds to consider movement rapid
+    var cooldownPeriod = 30000; // 30 seconds cooldown period
+    var eventTriggered = false; // Flag to track if the event has already been triggered
+    var mouseMoved = false; // Flag to check if the mouse has moved
+
+    // Function to calculate the total distance between multiple points
+    function calculateTotalDistance(points) {
+        var totalDistance = 0;
+        for (var i = 1; i < points.length; i++) {
+            totalDistance += Math.sqrt(Math.pow(points[i].x - points[i-1].x, 2) + Math.pow(points[i].y - points[i-1].y, 2));
+        }
+        return totalDistance;
+    }
+
+    // Listen for any click events as an indication of human interaction
+    document.addEventListener('click', function() {
+        mouseMoved = true; // Enable mouse movement tracking after the first click
+    });
+
+    document.addEventListener('mousemove', function(e) {
+        if (!mouseMoved || eventTriggered) {
+            return; // Do nothing if no click has occurred or the event has already been triggered
+        }
+
+        var currentTime = Date.now();
+        points.push({x: e.clientX, y: e.clientY, time: currentTime});
+        
+        // Remove points that are outside the time frame
+        while (points.length > 0 && currentTime - points[0].time > timeFrame) {
+            points.shift();
+        }
+
+        // Calculate the total distance of the remaining points
+        if (points.length > 1) {
+            var distance = calculateTotalDistance(points);
+            if (distance > threshold) {
+                // Rapid movement detected
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({'event': 'rapidMouseMovement'});
+                eventTriggered = true; // Set the flag to true after triggering the event
+                
+                // Set a timeout to reset the eventTriggered flag after the cooldown period
+                setTimeout(function() {
+                    eventTriggered = false;
+                }, cooldownPeriod);
+            }
+        }
+    });
+})();
