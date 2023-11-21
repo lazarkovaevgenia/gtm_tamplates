@@ -1,0 +1,35 @@
+<script>
+  // Function to handle mutations (changes) observed in the DOM
+  function handleMutations(mutations, observer) {
+    mutations.forEach(function(mutation) {
+      // Check if there is a new child in the DOM tree
+      if (mutation.addedNodes.length) {
+        mutation.addedNodes.forEach(function(addedNode) {
+          // Check if the added node is the pop-up element with the error class
+          if (addedNode.nodeType === 1 && addedNode.classList && addedNode.classList.contains('Toastify__toast--error')) {
+            // Send the GA4 event, assuming 'gtag' function is available
+            gtag('event', 'error_message', {
+              'event_category': 'Checkout Errors',
+              'event_label': addedNode.textContent.trim(),
+              'non_interaction': true
+            });
+            // Optionally, you can disconnect the observer after the event is found and sent
+            // observer.disconnect(); // You may want to comment this out to keep observing other errors
+          }
+        });
+      }
+    });
+  }
+
+  // Create an instance of MutationObserver and pass the callback function
+  var observer = new MutationObserver(handleMutations);
+
+  // Options for the observer (which mutations to observe)
+  var config = { childList: true, subtree: true };
+
+  // Target node to observe. Replace 'document.body' with a more specific target if possible, to improve performance
+  var targetNode = document.body;
+
+  // Start observing the target node for configured mutations
+  observer.observe(targetNode, config);
+</script>
