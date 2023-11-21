@@ -1,0 +1,35 @@
+<script>
+  // Function to handle mutations (changes) observed in the DOM
+  function handleMutations(mutations, observer) {
+    mutations.forEach(function(mutation) {
+      // Check if there is a new child in the DOM tree
+      if (mutation.addedNodes.length) {
+        mutation.addedNodes.forEach(function(addedNode) {
+          // Check if the added node contains the payment error message
+          if (addedNode.textContent.includes('Insufficient Funds')) {
+            // Here you send the GA4 event, assuming 'gtag' function is available
+            gtag('event', 'payment_error', {
+              'event_category': 'Checkout Errors',
+              'event_label': addedNode.textContent,
+              'non_interaction': true
+            });
+            // Optionally, you can disconnect the observer after the event is found and sent
+            observer.disconnect();
+          }
+        });
+      }
+    });
+  }
+
+  // Create an instance of MutationObserver and pass the callback function
+  var observer = new MutationObserver(handleMutations);
+
+  // Options for the observer (which mutations to observe)
+  var config = { childList: true, subtree: true };
+
+  // Target node to observe. Replace 'document.body' with a more specific target if possible, to improve performance
+  var targetNode = document.body;
+
+  // Start observing the target node for configured mutations
+  observer.observe(targetNode, config);
+</script>
