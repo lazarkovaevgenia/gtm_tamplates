@@ -1,0 +1,35 @@
+<script>
+  var exitIntentDetected = false;
+  var debounceTime = 1000; // milliseconds to debounce the event tracking
+
+  function resetExitIntent() {
+    setTimeout(function() { exitIntentDetected = false; }, debounceTime);
+  }
+
+  document.addEventListener('mousemove', function(e) {
+    if (!exitIntentDetected && e.clientY < 20 && e.clientY >= 0) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({
+        event: 'exit_intent'
+      });
+      exitIntentDetected = true;
+      resetExitIntent();
+    }
+  });
+
+</script>
+___________________________________________________________________________
+<script>
+  var exitIntentDetected=false
+ document.addEventListener('mousemove', function(e) {
+         
+        if (!exitIntentDetected && e.clientY < 20 && e.clientY >= 0) {
+            window.dataLayer=window.dataLayer||[];
+          window.dataLayer.push({
+              event:'exit_intent'
+          })
+          exitIntentDetected=true
+        }
+    });
+ 
+  </script>
