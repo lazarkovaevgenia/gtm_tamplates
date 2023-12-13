@@ -28,3 +28,39 @@
     });
 })();
 </script>
+
+_________________________________________________________________________________________________
+срабатывает несколько раз за сессию
+<script>
+(function() {
+    var lastTime = Date.now();
+    var lastX = null;
+    var lastY = null;
+    var threshold = 50;  // distance in pixels for rapid movement
+    var timeFrame = 100;  // milliseconds to consider movement rapid
+    var resetTime = 30000; // time in milliseconds to reset the event (e.g., 30 seconds)
+    var eventTriggered = false;  // Flag to track if the event has already been triggered
+
+    document.addEventListener('mousemove', function(e) {
+        var currentTime = Date.now();
+        if (lastX !== null && lastY !== null) {
+            var distance = Math.sqrt(Math.pow(e.clientX - lastX, 2) + Math.pow(e.clientY - lastY, 2));
+            if (!eventTriggered && distance > threshold && (currentTime - lastTime) < timeFrame) {
+                // Rapid movement detected
+                window.dataLayer = window.dataLayer || [];
+                window.dataLayer.push({'event': 'rapidMouseMovement'});
+                eventTriggered = true;  // Set the flag to true after triggering the event
+
+                // Reset the flag after a specified time
+                setTimeout(function() {
+                    eventTriggered = false;
+                }, resetTime);
+            }
+        }
+        lastX = e.clientX;
+        lastY = e.clientY;
+        lastTime = currentTime;
+    });
+})();
+</script>
+
