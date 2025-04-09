@@ -1,0 +1,31 @@
+GTM Tag Setup Case: Linkedin Form submissions
+
+Goal: Track form submissions for lead generation on specific  page  
+Tag Type: Custom HTML Tag (LinkedIn conversion tracking)  
+Trigger: Custom Event `form_submit` on `/page-path` page    # DataLayer
+Custom Variable: JavaScript variable checking if the form was already submitted (via localStorage)
+
+
+Implementation Steps:
+
+1. Created a Custom JavaScript variable named `Is First Form Submit`:  
+   
+   function() {
+     return localStorage.getItem('form_submitted') !== 'true';
+   }
+
+2. Built a trigger of type Custom Event with:
+Event name: form_submit
+
+Conditions:
+Page Path contains /page-path
+Is First Form Submit equals true
+
+3. Configured a Custom HTML Tag to fire on that trigger:
+
+<script>
+  window.lintrk('track', { conversion_id: ######## });   # add Linkedin conversion ID
+  localStorage.setItem('form_submitted', 'true');
+</script>
+
+4. Tested the setup using GTM Preview Mode.
