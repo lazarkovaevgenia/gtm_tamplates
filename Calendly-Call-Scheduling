@@ -9,7 +9,7 @@ Implementation Steps:
 
 1. Created a Data Layer Variable name `calendly_event`  
    - Type: Data Layer Variable  
-   -  Name: `calendar_event`  
+   -  Name: `calendly_event`  
    - Version: 2
 
 2. Created Custom Event Trigger named `Calendly Successful Call Schedules Trigger`  
