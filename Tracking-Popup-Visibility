@@ -1,0 +1,22 @@
+GTM Tag Setup Case: Tracking Popup Visibility
+ 
+Goal: Track how many users actually saw the popup (for engagement & conversion funnel analysis)  
+Tag Type: Google Analytics 4 Event  
+Trigger: Element Visibility Trigger when popup element is visible  
+Element Selector: `.xx-popup-inner`
+
+Implementation Steps:
+
+1. Created Element Visibility Trigger named `Popup Visible Trigger`  
+   - Selection Method: `CSS Selector`  
+   - Element Selector: `.xx-popup-inner`  
+   - Minimum Percent Visible: `1%`  
+   - Fire trigger: Every time an element appears on screen  
+   - Extra: Enabled "Observe DOM changes" for dynamic loading
+
+2. Created GA4 Event Tag  
+   - Event Name: `popup_viewed`  
+   - Measurement ID: `G-XXXXXXXXX`  
+   - Assigned Trigger: `Popup Visible Trigger`
+
+3. Tested behavior in GTM Preview Mode and verified event flow in GA4 DebugView
